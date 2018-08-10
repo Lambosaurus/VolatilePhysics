@@ -23,8 +23,9 @@ using System.Collections.Generic;
 
 #if UNITY
 using UnityEngine;
+#elif XNA
+using Microsoft.Xna.Framework;
 #endif
-
 namespace Volatile
 {
   public partial class VoltWorld

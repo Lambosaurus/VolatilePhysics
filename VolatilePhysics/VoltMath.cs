@@ -23,8 +23,9 @@ using System.Collections.Generic;
 
 #if UNITY
 using UnityEngine;
+#elif XNA
+using Microsoft.Xna.Framework;
 #endif
-
 namespace Volatile
 {
   public static class VoltMath
@@ -65,27 +66,27 @@ namespace Volatile
 
     public static Vector2 Right(this Vector2 v)
     {
-      return new Vector2(v.y, -v.x);
+      return new Vector2(v.Y, -v.X);
     }
 
     public static Vector2 Left(this Vector2 v)
     {
-      return new Vector2(-v.y, v.x);
+      return new Vector2(-v.Y, v.X);
     }
 
     public static Vector2 Rotate(this Vector2 v, Vector2 b)
     {
-      return new Vector2(v.x * b.x - v.y * b.y, v.y * b.x + v.x * b.y);
+      return new Vector2(v.X * b.X - v.Y * b.Y, v.Y * b.X + v.X * b.Y);
     }
 
     public static Vector2 InvRotate(this Vector2 v, Vector2 b)
     {
-      return new Vector2(v.x * b.x + v.y * b.y, v.y * b.x - v.x * b.y);
+      return new Vector2(v.X * b.X + v.Y * b.Y, v.Y * b.X - v.X * b.Y);
     }
 
     public static float Angle(this Vector2 v)
     {
-      return Mathf.Atan2(v.y, v.x);
+      return Mathf.Atan2(v.Y, v.X);
     }
 
     public static Vector2 Polar(float radians)
@@ -95,7 +96,7 @@ namespace Volatile
 
     public static float Cross(Vector2 a, Vector2 b)
     {
-      return a.x * b.y - a.y * b.x;
+      return a.X * b.Y - a.Y * b.X;
     }
 
     public static float Square(float a)

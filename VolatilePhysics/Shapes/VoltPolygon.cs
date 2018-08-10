@@ -23,6 +23,8 @@ using System.Collections.Generic;
 
 #if UNITY
 using UnityEngine;
+#elif XNA
+using Microsoft.Xna.Framework;
 #endif
 
 namespace Volatile
@@ -92,7 +94,7 @@ namespace Volatile
       {
         Vector2 u = vertices[i];
         Vector2 v = vertices[(i + 1) % count];
-        Vector2 normal = (v - u).Left().normalized;
+        Vector2 normal = (v - u).Left().Normalised();
         destination[i] = new Axis(normal, Vector2.Dot(normal, u));
       }
     }
@@ -101,17 +103,17 @@ namespace Volatile
       Vector2[] vertices,
       int count)
     {
-      float top = vertices[0].y;
-      float bottom = vertices[0].y;
-      float left = vertices[0].x;
-      float right = vertices[0].x;
+      float top = vertices[0].Y;
+      float bottom = vertices[0].Y;
+      float left = vertices[0].X;
+      float right = vertices[0].X;
 
       for (int i = 1; i < count; i++)
       {
-        top = Mathf.Max(top, vertices[i].y);
-        bottom = Mathf.Min(bottom, vertices[i].y);
-        left = Mathf.Min(left, vertices[i].x);
-        right = Mathf.Max(right, vertices[i].x);
+        top = Mathf.Max(top, vertices[i].Y);
+        bottom = Mathf.Min(bottom, vertices[i].Y);
+        left = Mathf.Min(left, vertices[i].X);
+        right = Mathf.Max(right, vertices[i].X);
       }
 
       return new VoltAABB(top, bottom, left, right);
@@ -401,7 +403,7 @@ namespace Volatile
         Vector2 u = this.bodyVertices[(i + 1) % this.countBody];
         Vector2 w = this.bodyVertices[(i + 2) % this.countBody];
 
-        sum += u.x * (v.y - w.y);
+        sum += u.X * (v.Y - w.Y);
       }
 
       return sum / 2.0f;
@@ -418,7 +420,7 @@ namespace Volatile
         Vector2 u = this.bodyVertices[(i + 1) % this.countBody];
 
         float a = VoltMath.Cross(u, v);
-        float b = v.sqrMagnitude + u.sqrMagnitude + Vector2.Dot(v, u);
+        float b = v.LengthSquared() + u.LengthSquared() + Vector2.Dot(v, u);
         s1 += a * b;
         s2 += a;
       }

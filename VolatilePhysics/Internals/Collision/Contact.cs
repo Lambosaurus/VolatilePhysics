@@ -20,6 +20,8 @@
 
 #if UNITY
 using UnityEngine;
+#elif XNA
+using Microsoft.Xna.Framework;
 #endif
 
 namespace Volatile
@@ -152,14 +154,14 @@ namespace Volatile
     #region Internals
     private void Reset()
     {
-      this.position = Vector2.zero;
-      this.normal = Vector2.zero;
+      this.position = Vector2.Zero;
+      this.normal = Vector2.Zero;
       this.penetration = 0.0f;
 
-      this.toA = Vector2.zero;
-      this.toB = Vector2.zero;
-      this.toALeft = Vector2.zero;
-      this.toBLeft = Vector2.zero;
+      this.toA = Vector2.Zero;
+      this.toB = Vector2.Zero;
+      this.toALeft = Vector2.Zero;
+      this.toBLeft = Vector2.Zero;
 
       this.nMass = 0.0f;
       this.tMass = 0.0f;

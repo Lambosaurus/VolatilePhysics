@@ -22,6 +22,8 @@ using System;
 
 #if UNITY
 using UnityEngine;
+#elif XNA
+using Microsoft.Xna.Framework;
 #endif
 
 namespace Volatile

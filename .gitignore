@@ -34,3 +34,7 @@ FakeUnity/obj/*
 Unity/Unity.*
 Unity/Assembly-CSharp.*
 
+
+*.lock
+
+*.ide

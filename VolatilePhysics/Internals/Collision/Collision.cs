@@ -20,6 +20,8 @@
 
 #if UNITY
 using UnityEngine;
+#elif XNA
+using Microsoft.Xna.Framework;
 #endif
 
 namespace Volatile
@@ -168,7 +170,7 @@ namespace Volatile
       float radius)
     {
       Vector2 delta = origin - point;
-      return delta.sqrMagnitude <= (radius * radius);
+      return delta.LengthSquared() <= (radius * radius);
     }
 
     /// <summary>
@@ -181,7 +183,7 @@ namespace Volatile
       float radiusB)
     {
       float radiusTotal = radiusA + radiusB;
-      return (originA - originB).sqrMagnitude <= (radiusTotal * radiusTotal);
+      return (originA - originB).LengthSquared() <= (radiusTotal * radiusTotal);
     }
 
     /// <summary>
@@ -196,7 +198,7 @@ namespace Volatile
     {
       Vector2 toOrigin = shapeOrigin - ray.origin;
 
-      if (toOrigin.sqrMagnitude < sqrRadius)
+      if (toOrigin.LengthSquared() < sqrRadius)
       {
         result.SetContained(shape);
         return true;
@@ -217,7 +219,7 @@ namespace Volatile
 
       // N.B.: For historical raycasts this normal will be wrong!
       // Must be either transformed back to world or invalidated later.
-      Vector2 normal = (dist * ray.direction - toOrigin).normalized;
+      Vector2 normal = (dist * ray.direction - toOrigin).Normalised();
       result.Set(shape, dist, normal);
       return true;
     }
@@ -312,7 +314,7 @@ namespace Volatile
     {
       Vector2 r = overrideBCenter - shapeA.worldSpaceOrigin;
       float min = shapeA.radius + overrideBRadius;
-      float distSq = r.sqrMagnitude;
+      float distSq = r.LengthSquared();
 
       if (distSq >= min * min)
         return null;
@@ -336,7 +338,7 @@ namespace Volatile
       VoltPolygon poly2,
       out Axis axis)
     {
-      axis = new Axis(Vector2.zero, float.NegativeInfinity);
+      axis = new Axis(Vector2.Zero, float.NegativeInfinity);
 
       for (int i = 0; i < poly1.countWorld; i++)
       {

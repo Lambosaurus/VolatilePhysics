@@ -18,26 +18,42 @@
  *  3. This notice may not be removed or altered from any source distribution.
 */
 
-#if !UNITY
+#if XNA
+
+using Microsoft.Xna.Framework;
+
+namespace Volatile
+{
+    public static class Vector2Extention
+    {
+        public static Vector2 Normalised(this Vector2 v)
+        {
+            float magnitude = v.Length();
+            return new Vector2(v.X / magnitude, v.Y / magnitude);
+        }
+    }
+}
+
+#elif !UNITY
 namespace Volatile
 {
   public struct Vector2
   {
-    public static Vector2 zero { get { return new Vector2(0.0f, 0.0f); } }
+    public static Vector2 Zero { get { return new Vector2(0.0f, 0.0f); } }
 
     public static float Dot(Vector2 a, Vector2 b)
     {
-      return (a.x * b.x) + (a.y * b.y);
+      return (a.X * b.X) + (a.Y * b.Y);
     }
 
-    public readonly float x;
-    public readonly float y;
+    public readonly float X;
+    public readonly float Y;
 
-    public float sqrMagnitude
+    public float LengthSquared()
     {
       get
       {
-        return (this.x * this.x) + (this.y * this.y);
+        return (this.X * this.X) + (this.Y * this.Y);
       }
     }
 
@@ -45,48 +61,48 @@ namespace Volatile
     { 
       get 
       {
-        return Mathf.Sqrt(this.sqrMagnitude);
+        return Mathf.Sqrt(this.LengthSquared());
       } 
     }
 
-    public Vector2 normalized
+    public Vector2 Normalised()
     {
       get
       {
         float magnitude = this.magnitude;
-        return new Vector2(this.x / magnitude, this.y / magnitude);
+        return new Vector2(this.X / magnitude, this.Y / magnitude);
       }
     }
 
     public Vector2 (float x, float y)
     {
-      this.x = x;
-      this.y = y;
+      this.X = x;
+      this.Y = y;
     }
 
     public static Vector2 operator *(Vector2 a, float b)
     {
-      return new Vector2(a.x * b, a.y * b);
+      return new Vector2(a.X * b, a.Y * b);
     }
 
     public static Vector2 operator *(float a, Vector2 b)
     {
-      return new Vector2(b.x * a, b.y * a);
+      return new Vector2(b.X * a, b.Y * a);
     }
 
     public static Vector2 operator +(Vector2 a, Vector2 b)
     {
-      return new Vector2(a.x + b.x, a.y + b.y);
+      return new Vector2(a.X + b.X, a.Y + b.Y);
     }
 
     public static Vector2 operator -(Vector2 a, Vector2 b)
     {
-      return new Vector2(a.x - b.x, a.y - b.y);
+      return new Vector2(a.X - b.X, a.Y - b.Y);
     }
 
     public static Vector2 operator -(Vector2 a)
     {
-      return new Vector2(-a.x, -a.y);
+      return new Vector2(-a.X, -a.Y);
     }
   }
 }
