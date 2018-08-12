@@ -20,12 +20,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 #if UNITY
 using UnityEngine;
 #elif XNA
 using Microsoft.Xna.Framework;
 #endif
+
 namespace Volatile
 {
   public partial class VoltWorld
@@ -455,28 +457,30 @@ namespace Volatile
       body.AssignWorld(null);
     }
 
+
     /// <summary>
     /// Identifies collisions for all bodies, ignoring symmetrical duplicates.
-    /// </summary>
+    /// </summary>  
     private void BroadPhase()
     {
-      for (int i = 0; i < this.bodies.Count; i++)
-      {
-        VoltBody query = this.bodies[i];
-        if (query.IsStatic)
-          continue;
+        this.bodies.Sort( Comparer<VoltBody>.Create((b1, b2) => b1.AABB.Left.CompareTo(b2.AABB.Left)) );
 
-        this.reusableBuffer.Clear();
-        this.staticBroadphase.QueryOverlap(query.AABB, this.reusableBuffer);
+        for (int i = 0; i < this.bodies.Count; i++)
+        {
+            VoltBody query = this.bodies[i];
+            if (query.IsStatic)
+                continue;
 
-        // HACK: Don't use dynamic broadphase for global updates for this.
-        // It's faster if we do it manually because we can triangularize.
-        for (int j = i + 1; j < this.bodies.Count; j++)
-          if (this.bodies[j].IsStatic == false)
-            this.reusableBuffer.Add(this.bodies[j]);
+            this.reusableBuffer.Clear();
+            this.staticBroadphase.QueryOverlap(query.AABB, this.reusableBuffer);
 
-        this.TestBuffer(query);
-      }
+            float right = query.AABB.Right;
+            for (int j = i + 1; j < this.bodies.Count && this.bodies[j].AABB.Left <= right; j++)
+                if (this.bodies[j].IsStatic == false)
+                    this.reusableBuffer.Add(this.bodies[j]);
+
+            this.TestBuffer(query);
+        }
     }
 
     /// <summary>

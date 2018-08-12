@@ -20,6 +20,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Volatile
 {
@@ -40,6 +41,11 @@ namespace Volatile
     {
       this.values = new T[capacity];
       this.count = 0;
+    }
+
+    public void Sort(Comparer<T> comparer)
+    {
+      this.values.TimSort(0, this.count, comparer);
     }
 
     /// <summary>

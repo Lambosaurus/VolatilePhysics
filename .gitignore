@@ -38,3 +38,5 @@ Unity/Assembly-CSharp.*
 *.lock
 
 *.ide
+
+\.vs/VolatilePhysics/v15/Server/sqlite3/

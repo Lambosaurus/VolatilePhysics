@@ -66,6 +66,9 @@
       <HintPath>..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="TimSort">
+      <HintPath>lib\TimSort.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Util\Debug\VoltDebug.cs" />
@@ -98,6 +101,9 @@
     <Compile Include="VoltShape.cs" />
     <Compile Include="Util\VoltUtil.cs" />
     <Compile Include="VoltWorld.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\TimSort.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
