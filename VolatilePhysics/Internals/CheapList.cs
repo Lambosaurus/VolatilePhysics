@@ -46,6 +46,10 @@ namespace Volatile
     public void Sort(Comparer<T> comparer)
     {
       this.values.TimSort(0, this.count, comparer);
+      for ( int i = 0; i < this.count; i++ )
+      {
+          this.values[i].Index = i;
+      }
     }
 
     /// <summary>
