@@ -279,7 +279,8 @@ namespace Volatile
 
       for (int i = 0; i < poly.countWorld; i++)
       {
-        Axis axis = poly.worldAxes[i];
+        Axis axis = poly.bodyAxes[i];
+        //Axis axis = poly.worldAxes[i];
         float dot = Vector2.Dot(axis.Normal, origin);
         float dist = dot - axis.Width - radius;
 
